@@ -9,7 +9,7 @@
   <Identity
     Name="Baka632.Compass"
     Publisher="CN=Baka632"
-    Version="1.0.3.0" />
+    Version="1.0.9.0" />
 
   <mp:PhoneIdentity PhoneProductId="b742c92b-36ff-496e-8602-df171466c0ee" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

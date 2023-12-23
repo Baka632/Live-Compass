@@ -46,6 +46,7 @@
             <StackPanel
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
+                d:Visibility="Collapsed"
                 Orientation="Horizontal">
                 <FontIcon
                     Margin="10"
@@ -69,12 +70,105 @@
                 Margin="0,20,0,0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
+                d:Text="North"
+                FontSize="20"
+                FontWeight="Black"
                 Text="{x:Bind ViewModel.CurrentDirection, Mode=OneWay, Converter={StaticResource DirectionToStringConverter}}" />
             <TextBlock
                 Margin="0,60,0,0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Top"
+                d:Text="Low"
                 Text="{x:Bind ViewModel.CurrentCompassAccuracy, Mode=OneWay}" />
+
+            <Grid
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                RenderTransformOrigin="0.5 0.5">
+                <Grid.Resources>
+                    <Storyboard x:Name="AngleStoryboard">
+                        <DoubleAnimation
+                            x:Name="AngleAnimation"
+                            Storyboard.TargetName="AngleRotateTransform"
+                            Storyboard.TargetProperty="Angle"
+                            Duration="0:0:0.5" />
+                    </Storyboard>
+                </Grid.Resources>
+                <Grid.RenderTransform>
+                    <RotateTransform x:Name="AngleRotateTransform" d:Angle="10" />
+                </Grid.RenderTransform>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <Polygon
+                    Margin="0,0,0,5"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Fill="#f71b34"
+                    Points="10,0  0,30  20,30" />
+                <Grid
+                    Grid.Row="1"
+                    Width="350"
+                    Height="350">
+                    <Ellipse
+                        Stroke="Gray"
+                        StrokeDashArray="0.4 0.7"
+                        StrokeThickness="7" />
+
+                    <Grid Margin="10">
+                        <Grid.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="FontSize" Value="20" />
+                            </Style>
+                        </Grid.Resources>
+                        <TextBlock
+                            Margin="0,-2,0,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top"
+                            Foreground="#f71b34"
+                            Text="N" />
+
+                        <TextBlock
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            RenderTransformOrigin="0.5,0.5"
+                            Text="E">
+                            <TextBlock.RenderTransform>
+                                <RotateTransform Angle="90" />
+                            </TextBlock.RenderTransform>
+                        </TextBlock>
+
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Bottom"
+                            RenderTransformOrigin="0.5,0.5"
+                            Text="S">
+                            <TextBlock.RenderTransform>
+                                <RotateTransform Angle="180" />
+                            </TextBlock.RenderTransform>
+                        </TextBlock>
+
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            RenderTransformOrigin="0.5,0.5"
+                            Text="W">
+                            <TextBlock.RenderTransform>
+                                <RotateTransform Angle="-90" />
+                            </TextBlock.RenderTransform>
+                        </TextBlock>
+                    </Grid>
+                </Grid>
+            </Grid>
+            <TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="30">
+                <Run d:Text="10" Text="{x:Bind ViewModel.HeadingNorthAngleString, Mode=OneWay}" />
+                <Run Text="°" />
+            </TextBlock>
         </Grid>
     </Grid>
 </Page>

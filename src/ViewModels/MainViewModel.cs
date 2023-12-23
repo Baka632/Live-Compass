@@ -7,13 +7,17 @@ namespace LiveCompass.ViewModels;
 /// </summary>
 public sealed partial class MainViewModel : ObservableObject
 {
+    public event Action CompassValueUpdated;
+
     /// <summary>
     /// 设备罗盘的实例。如果罗盘不可用，则此属性的值为 <see langword="null"/>
     /// </summary>
     public Compass CurrentCompass { get; } = Compass.GetDefault();
+    public string HeadingNorthAngleString => HeadingNorthAngle.ToString("f0");
 
     [ObservableProperty]
-    private double headingNorthAngel;
+    [NotifyPropertyChangedFor(nameof(HeadingNorthAngleString))]
+    private double headingNorthAngle;
     [ObservableProperty]
     private GeographicDirection currentDirection;
     [ObservableProperty]
@@ -23,6 +27,10 @@ public sealed partial class MainViewModel : ObservableObject
     {
         if (CurrentCompass is not null)
         {
+            uint minInterval = 700;
+            CurrentCompass.ReportInterval = minInterval > CurrentCompass.MinimumReportInterval
+                ? minInterval
+                : CurrentCompass.MinimumReportInterval + minInterval;
             CurrentCompass.ReadingChanged += OnCompassReadingChanged;
         }
     }
@@ -36,9 +44,10 @@ public sealed partial class MainViewModel : ObservableObject
 
         await UIThreadHelper.RunOnUIThread(() =>
         {
-            HeadingNorthAngel = angle;
+            HeadingNorthAngle = angle;
             CurrentDirection = direction;
             CurrentCompassAccuracy = reading.HeadingAccuracy;
+            CompassValueUpdated?.Invoke();
         });
     }
 

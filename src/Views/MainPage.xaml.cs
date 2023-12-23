@@ -1,5 +1,6 @@
 ﻿// https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x804 上介绍了“空白页”项模板
 
+
 namespace LiveCompass.Views;
 
 /// <summary>
@@ -17,5 +18,13 @@ public sealed partial class MainPage : Page
         {
             TitleBarTextBlock.Visibility = Visibility.Collapsed;
         }
+        ViewModel.CompassValueUpdated += OnCompassValueUpdated;
+    }
+
+    private void OnCompassValueUpdated()
+    {
+        double rawAngle = ViewModel.HeadingNorthAngle;
+        AngleAnimation.To = rawAngle == 360 ? 0 : rawAngle;
+        AngleStoryboard.Begin();
     }
 }
