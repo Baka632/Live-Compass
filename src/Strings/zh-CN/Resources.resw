@@ -40,7 +40,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AppDisplayName" xml:space="preserve">
-    <value>Live Compass</value>
+    <value>Live 指南针</value>
   </data>
   <data name="North" xml:space="preserve">
     <value>北</value>
@@ -65,5 +65,11 @@
   </data>
   <data name="SouthEast" xml:space="preserve">
     <value>东南</value>
+  </data>
+  <data name="NoCompassTextBlock.Text" xml:space="preserve">
+    <value>指南针不可用</value>
+  </data>
+  <data name="AppShortName" xml:space="preserve">
+    <value>指南针</value>
   </data>
 </root>

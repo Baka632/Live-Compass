@@ -21,7 +21,10 @@ public sealed partial class MainViewModel : ObservableObject
 
     public MainViewModel()
     {
-        CurrentCompass.ReadingChanged += OnCompassReadingChanged;
+        if (CurrentCompass is not null)
+        {
+            CurrentCompass.ReadingChanged += OnCompassReadingChanged;
+        }
     }
 
     private async void OnCompassReadingChanged(Compass sender, CompassReadingChangedEventArgs args)
@@ -35,6 +38,7 @@ public sealed partial class MainViewModel : ObservableObject
         {
             HeadingNorthAngel = angle;
             CurrentDirection = direction;
+            CurrentCompassAccuracy = reading.HeadingAccuracy;
         });
     }
 
@@ -42,14 +46,15 @@ public sealed partial class MainViewModel : ObservableObject
     {
         GeographicDirection direction = angle switch
         {
-            0 or 360 => GeographicDirection.North,
-            90 => GeographicDirection.East,
-            180 => GeographicDirection.South,
-            270 => GeographicDirection.West,
-            > 0 and < 90 => GeographicDirection.NorthEast,
-            > 90 and < 180 => GeographicDirection.SouthEast,
-            > 180 and < 270 => GeographicDirection.SouthWest,
-            > 270 and < 360 => GeographicDirection.NorthWest,
+            // 在正东/正南/正西/正北的角度，容许 20 度的误差
+            (>= 0d and <= 20d) or (>= 340d and <= 360d) => GeographicDirection.North, // 精确值：0 或 360
+            >= 70d and <= 110d => GeographicDirection.East, // 精确值：90
+            >= 160d and <= 200d => GeographicDirection.South, // 精确值：180
+            >= 250d and <= 290d => GeographicDirection.West, // 精确值：270
+            > 20d and < 70d => GeographicDirection.NorthEast,
+            > 110d and < 160d => GeographicDirection.SouthEast,
+            > 200d and < 250d => GeographicDirection.SouthWest,
+            > 290d and < 340d => GeographicDirection.NorthWest,
             _ => throw new NotImplementedException($"What's wrong with the angle???\nCurrent angle value:{angle}")
         };
 

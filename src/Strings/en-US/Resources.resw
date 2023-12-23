@@ -39,4 +39,10 @@
   <data name="NorthEast" xml:space="preserve">
     <value>Northeast</value>
   </data>
+  <data name="NoCompassTextBlock.Text" xml:space="preserve">
+    <value>Compass is not available</value>
+  </data>
+  <data name="AppShortName" xml:space="preserve">
+    <value>Compass</value>
+  </data>
 </root>

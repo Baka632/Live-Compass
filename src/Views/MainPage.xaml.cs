@@ -7,8 +7,15 @@ namespace LiveCompass.Views;
 /// </summary>
 public sealed partial class MainPage : Page
 {
+    public MainViewModel ViewModel { get; } = new();
+
     public MainPage()
     {
         this.InitializeComponent();
+
+        if (EnvironmentHelper.IsWindowsMobile)
+        {
+            TitleBarTextBlock.Visibility = Visibility.Collapsed;
+        }
     }
 }
