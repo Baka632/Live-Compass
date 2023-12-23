@@ -131,6 +131,16 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="GlobalUsings.cs" />
+    <Compile Include="Helpers\Converters\GeographicDirectionToStringConverter.cs" />
+    <Compile Include="Helpers\EnvironmentHelper.cs" />
+    <Compile Include="Helpers\LocalizationHelper.cs" />
+    <Compile Include="Helpers\NavigationHelper.cs" />
+    <Compile Include="Helpers\ReswHelper.cs" />
+    <Compile Include="Helpers\TitleBarHelper.cs" />
+    <Compile Include="Helpers\UIThreadHelper.cs" />
+    <Compile Include="Helpers\XamlHelper.cs" />
+    <Compile Include="Models\GeographicDirection.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -174,10 +184,7 @@
       <Version>6.2.14</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <PRIResource Include="Strings\zh-CN\Resources.resw" />
   </ItemGroup>

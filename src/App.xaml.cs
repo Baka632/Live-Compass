@@ -9,6 +9,11 @@ namespace LiveCompass;
 sealed partial class App : Application
 {
     /// <summary>
+    /// 获取应用程序名
+    /// </summary>
+    public static string AppDisplayName => ReswHelper.GetReswString("AppDisplayName");
+
+    /// <summary>
     /// 初始化单一实例应用程序对象。这是执行的创作代码的第一行，
     /// 已执行，逻辑上等同于 main() 或 WinMain()。
     /// </summary>
@@ -40,6 +45,9 @@ sealed partial class App : Application
 
             // 将框架放在当前窗口中
             Window.Current.Content = rootFrame;
+            UIThreadHelper.Initialize(rootFrame.Dispatcher);
+
+            TitleBarHelper.SetTitleBarAppearance();
         }
 
         if (e.PrelaunchActivated == false)
